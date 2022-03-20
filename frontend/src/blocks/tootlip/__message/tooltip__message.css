@@ -1,0 +1,9 @@
+.tooltip__message {
+  margin: 0;
+  max-width: 358px;
+  text-align: center;
+  font-weight: 900;
+  font-size: 24px;
+  line-height: 29px;
+  margin: 0 0 60px;
+}

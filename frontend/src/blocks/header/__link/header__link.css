@@ -1,0 +1,16 @@
+.header__link {
+  padding: 0;
+  height: 56px;
+  height: 22px;
+  cursor: pointer;
+  border: none;
+  background-color: #000000;
+  color: hsla(0, 0%, 100%, 1);
+  text-decoration: none;
+  transition: .4s all ease;
+}
+
+.header__link:hover{
+  opacity: .6;
+  cursor: pointer;
+}

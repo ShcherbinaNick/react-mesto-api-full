@@ -1,0 +1,16 @@
+.header__logo {
+  display: block;
+  transition: .4s all ease;
+}
+
+.header__logo:hover {
+  opacity: .6;
+  cursor: pointer;
+}
+
+@media screen and (max-width: 768px) {
+  .header__logo {
+    width: 104px;
+    margin: 0 0 31px 27px;
+  }
+}
