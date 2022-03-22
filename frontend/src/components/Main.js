@@ -23,8 +23,8 @@ function Main({ onEditAvatarClick, onEditProfileClick, onAddPlaceClick, onCardCl
       </section>
       <section className="cards">
         <ul className="cards__list">
-          { cards.map(({ _id, ...card }) =>
-            <Card cardData={ { ...card, _id } } key={ _id } onCardClick={ onCardClick } onCardLike={ onCardLike } onCardDelete={ onCardDelete } />
+          { cards.map((card) =>
+            <Card cardData={ card } key={ card._id } onCardClick={ onCardClick } onCardLike={ onCardLike } onCardDelete={ onCardDelete } />
           ) }
         </ul>
       </section>

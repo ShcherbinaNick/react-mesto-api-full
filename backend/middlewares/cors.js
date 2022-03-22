@@ -3,8 +3,10 @@ const allowedCors = [
   'https://shcherbinanick.mesto.nomoredomains.work/',
   'http://shcherbinanick.mesto.nomoredomains.work',
   'http://shcherbinanick.mesto.nomoredomains.work/',
-  'localhost:3000',
-  'localhost:3000/',
+  'http://localhost:3001',
+  'http://localhost:3001/',
+  'https://localhost:3001',
+  'https://localhost:3001/',
 ];
 
 const DEFAULT_ALLOWED_METHODS = 'GET,HEAD,PUT,PATCH,POST,DELETE';
@@ -20,7 +22,7 @@ module.exports = (req, res, next) => {
   if (method === 'OPTIONS') {
     res.header('Access-Control-Allow-Methods', DEFAULT_ALLOWED_METHODS);
     res.header('Access-Control-Allow-Headers', requestHeaders);
-    res.end();
+    return res.end();
   }
-  next();
+  return next();
 };

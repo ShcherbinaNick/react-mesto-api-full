@@ -24,13 +24,25 @@ module.exports.login = async (req, res, next) => {
         { expiresIn: '7d' },
       );
       res.cookie('token', token, {
-        maxAge: 3600000,
+        maxAge: 3600000 * 24 * 7,
         httpOnly: true,
-        sameSite: true,
+        domain: '.shcherbinanick.mesto.nomoredomains.work',
       }).status(200).send({ message: 'Аутентификация пройдена' });
     }
   } catch (err) {
     next(new UnAuthtorizedError('Требуется авторизация'));
+  }
+};
+
+module.exports.logout = async (req, res, next) => {
+  try {
+    const { token } = req.cookies;
+    if (!token) {
+      throw new UnAuthtorizedError('Вы должны быть залогинены, чтобы выйти');
+    }
+    res.clearCookie('token', { httpOnly: true }).send({ message: 'Вы вышли из учётной записи' });
+  } catch (err) {
+    next(err);
   }
 };
 

@@ -1,8 +1,9 @@
-export const BASE_URL = "https://auth.nomoreparties.co"
+export const BASE_URL = 'https://api.shcherbinanick.mesto.nomoredomains.work'
 
 export const register = (userData) => {
-  return fetch(`${ BASE_URL }/signup`, {
+  return fetch(`${BASE_URL}/signup`, {
     method: "POST",
+    credentials: 'include',
     headers: {
       "Content-Type": "application/json"
     },
@@ -17,8 +18,9 @@ export const register = (userData) => {
 }
 
 export const login = (userData) => {
-  return fetch(`${ BASE_URL }/signin`, {
+  return fetch(`${BASE_URL}/signin`, {
     method: "POST",
+    credentials: 'include',
     headers: {
       "Content-Type": "application/json"
     },
@@ -31,12 +33,23 @@ export const login = (userData) => {
   })
 }
 
-export const getContent = (token) => {
+export const logout = () => {
+  return fetch(`${BASE_URL}/logout`, {
+    method: 'GET',
+    credentials: 'include',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+  })
+}
+
+export const getContent = () => {
   return fetch(`${BASE_URL}/users/me`, {
     method: 'GET',
+    credentials: 'include',
     headers: {
+      'Accept': 'application/json',
       'Content-Type': 'application/json',
-      'Authorization': `Bearer ${token}`,
     }
   })
   .then((response) => {
@@ -45,4 +58,4 @@ export const getContent = (token) => {
     }
     return Promise.reject(`Ошибка ${ response.status }`)
   })
-} 
+}

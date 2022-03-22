@@ -1,15 +1,16 @@
 import logo from '../../src/images/logo.svg';
 import React from 'react';
 import { Link, Route, Switch, useHistory } from 'react-router-dom';
+import { logout } from '../utils/auth';
 
 function Header({ onLogOut, userEmail }) {
 
   const history = useHistory();
 
-  const logOut = () => {
-    localStorage.removeItem('jwt')
+  const logOut = async () => {
+    await logout();
     onLogOut(false)
-    history.push("/sign-in")
+    history.push("/signin")
   }
 
   return (
@@ -18,11 +19,11 @@ function Header({ onLogOut, userEmail }) {
         <img src={logo} alt="место Россия" className="header__logo" />
       </Link>
       <Switch>
-        <Route path="/sign-up">
-          <Link to="/sign-in" className="header__link">Войти</Link>
+        <Route path="/signup">
+          <Link to="/signin" className="header__link">Войти</Link>
         </Route>
-        <Route path="/sign-in">
-          <Link to="/sign-up" className="header__link">Регистрация</Link>
+        <Route path="/signin">
+          <Link to="/signup" className="header__link">Регистрация</Link>
         </Route>
         <Route path="/">
           <div className="header__info">

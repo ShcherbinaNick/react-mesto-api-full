@@ -1,5 +1,5 @@
 const express = require('express');
-const { login, createUser } = require('../controllers/users');
+const { login, createUser, logout } = require('../controllers/users');
 const auth = require('../middlewares/auth');
 const { validateLogin, validateCreateUser } = require('../middlewares/validation');
 const { cardsRoutes } = require('./cards');
@@ -13,6 +13,7 @@ routes.post('/signin', express.json(), validateLogin, login);
 
 routes.use('/users', auth, userRoutes);
 routes.use('/cards', auth, cardsRoutes);
+routes.use('/logout', logout);
 
 routes.use((req, res, next) => {
   next(new NotFoundError('Cтраница не найдена'));

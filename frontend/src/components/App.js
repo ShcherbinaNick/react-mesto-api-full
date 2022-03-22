@@ -44,13 +44,9 @@ function App() {
   const handleRegistration = (values) => {
     auth.register(values)
     .then((res) => {
-      if (res.data._id) {
         setIsSignUpSuccessful(true)
         setIsInfoTooltipOpen(true)
-        history.push("/sign-in")
-      } else {
-        setIsInfoTooltipOpen(true)
-      }
+        history.push("/signin")
     })
     .catch((err) => {
       setIsSignUpSuccessful(false)
@@ -60,16 +56,10 @@ function App() {
   }
 
   const handleLogin = (values) => {
-    auth.login(values)
-    .then((res) => {
-      if (res.token) {
-        localStorage.setItem('jwt', res.token)
-        setIsLoggedIn(true)
-        history.push("/")
-        setUserEmail(values.email)
-      } else {
-        setIsInfoTooltipOpen(true)
-      }
+    auth.login(values).then(_ => {
+      setIsLoggedIn(true)
+      history.push("/")
+      setUserEmail(values.email)
     })
     .catch((err) => {
       console.log(err)
@@ -78,23 +68,20 @@ function App() {
   }
 
   const tokenCheck = () => {
-    const jwt = localStorage.getItem('jwt')
-      if (jwt) {
-        auth.getContent(jwt)
-      .then((res) => {
-        if (res) {
-          setIsLoggedIn(true)
-          history.push("/")
-          setUserEmail(res.data.email)
-        } else {
-          localStorage.removeItem('jwt')
-        }
-      })
-      .catch((err) => {
-        console.log(err)
-      })   
+    auth.getContent()
+    .then((res) => {
+      if (res) {
+        setIsLoggedIn(true)
+        history.push("/")
+        setUserEmail(res.email)
       }
-  }
+    })
+    .catch((err) => {
+      console.log(err)
+      setIsLoggedIn(false)
+      setUserEmail('')
+    })
+    }
 
   const handleCardLike = (card) => {
     // Снова проверяем, есть ли уже лайк на этой карточке
@@ -126,13 +113,15 @@ function App() {
 
   useEffect(() => {
     tokenCheck();
-    Promise.all([ api.getUserInfo(), api.getInitialCards() ])
-      .then(([ user, newCards ]) => {
-        setCurrentUser(user);
-        setCards(newCards);
-      })
-      .catch(err => console.log(err))
-  }, [])
+    if (isLoggedIn) {
+      Promise.all([ api.getUserInfo(), api.getInitialCards() ])
+       .then(([ user, newCards ]) => {
+         setCurrentUser(user);
+         setCards(newCards);
+       })
+       .catch(err => console.log(err))
+      }
+    }, [isLoggedIn])
 
   const closeAllPopups = () => {
     setIsEditAvatarPopupOpen(false);
@@ -214,10 +203,10 @@ function App() {
                 onCardLike={ handleCardLike }
                 onCardDelete={ handleCardDelete }>
               </ProtectedRoute>
-              <Route path="/sign-up">
+              <Route path="/signup">
                 <Register onSubmit={ handleRegistration } />
               </Route>
-              <Route path="/sign-in">
+              <Route path="/signin">
                 <Login onSubmit={ handleLogin } />
               </Route>
             </Switch>

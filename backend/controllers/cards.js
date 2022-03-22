@@ -6,7 +6,7 @@ const Card = require('../models/card');
 
 module.exports.getCards = async (req, res, next) => {
   try {
-    const cards = await Card.find({});
+    const cards = await Card.find({}).populate(['owner', 'likes']);
     if (cards) {
       res.status(200).send(cards);
     }
@@ -68,7 +68,7 @@ module.exports.setCardLike = async (req, res, next) => {
       cardId,
       { $addToSet: { likes: req.user._id } },
       { new: true },
-    );
+    ).populate(['owner', 'likes']);
     if (cardLike) {
       res.send(cardLike);
     } else {
@@ -86,13 +86,13 @@ module.exports.setCardLike = async (req, res, next) => {
 module.exports.deleteCardLike = async (req, res, next) => {
   try {
     const { cardId } = req.params;
-    const card = await Card.findByIdAndUpdate(
+    const cardLike = await Card.findByIdAndUpdate(
       cardId,
       { $pull: { likes: req.user._id } },
       { new: true },
-    );
-    if (card) {
-      res.send(card);
+    ).populate(['owner', 'likes']);
+    if (cardLike) {
+      res.send(cardLike);
     } else {
       throw new NotFoundError('Нет карточки для дизлайка');
     }
