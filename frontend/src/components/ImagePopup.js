@@ -1,3 +1,5 @@
+import React from "react";
+
 function ImagePopup(props) {
   const { card, onClose, overlayClose } = props
   const { link, name } = card

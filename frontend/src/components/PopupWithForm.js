@@ -1,3 +1,5 @@
+import React from 'react';
+
 function PopupWithForm({ name, title, buttonText="Сохранить", children, isOpen, onClose, onSubmit, overlayClose}) {
 
   return (
