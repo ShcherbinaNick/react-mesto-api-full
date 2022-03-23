@@ -23,7 +23,7 @@
     "eject": "react-scripts eject",
     "predeploy": "npm run build",
     "deploy": "gh-pages -d build",
-    "deploy prod": "npm run build && scp -r ./build/* mvxim@178.154.195.203:/home/scherbinanick/frontend"
+    "deploy prod": "npm run build && scp -r ./build/* scherbinanick@178.154.195.203:/home/scherbinanick/react-mesto-api-full/frontend"
   },
   "eslintConfig": {
     "extends": [
