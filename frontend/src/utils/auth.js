@@ -1,4 +1,4 @@
-export const BASE_URL = 'https://api.shcherbinanick.mesto.nomoredomains.work'
+export const BASE_URL = 'http://api.shcherbinanick.mesto.nomoredomains.work'
 
 export const register = (userData) => {
   return fetch(`${BASE_URL}/signup`, {
