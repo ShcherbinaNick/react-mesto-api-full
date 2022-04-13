@@ -40,6 +40,11 @@ export const logout = () => {
     headers: {
       'Content-Type': 'application/json'
     },
+  }).then((response) => {
+    if (response.status === 200) {
+      return response.json()
+    }
+    return Promise.reject(`Ошибка ${ response.status }`)
   })
 }
 
