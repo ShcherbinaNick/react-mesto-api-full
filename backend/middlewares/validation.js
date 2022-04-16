@@ -11,7 +11,7 @@ const validateUrl = (value) => {
 module.exports.validateLogin = celebrate({
   body: Joi.object().keys({
     email: Joi.string().required().email(),
-    password: Joi.string().required().min(6),
+    password: Joi.string().required(),
   }),
 });
 
@@ -21,7 +21,7 @@ module.exports.validateCreateUser = celebrate({
     about: Joi.string().min(2).max(30),
     avatar: Joi.string().custom(validateUrl),
     email: Joi.string().required().email(),
-    password: Joi.string().required().min(6),
+    password: Joi.string().required(),
   }),
 });
 

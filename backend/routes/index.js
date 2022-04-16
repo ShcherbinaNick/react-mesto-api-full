@@ -17,8 +17,10 @@ routes.get('/crash-test', () => {
 routes.post('/signup', express.json(), validateCreateUser, createUser);
 routes.post('/signin', express.json(), validateLogin, login);
 
-routes.use('/users', auth, userRoutes);
-routes.use('/cards', auth, cardsRoutes);
+routes.use(auth);
+
+routes.use('/users', userRoutes);
+routes.use('/cards', cardsRoutes);
 routes.use('/logout', logout);
 
 // Логаут по заданию не требуется, но мне захотелось его сделать.
