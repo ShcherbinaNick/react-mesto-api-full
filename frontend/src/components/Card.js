@@ -14,7 +14,7 @@ function Card({ cardData, onCardClick, onCardLike, onCardDelete }) {
 
   // Создаём переменную, которую после зададим в `className` для кнопки удаления
   const cardDeleteButtonClassName = (
-    `card__delete ${ isOwn ? '' : 'card__delete_hidden' }`
+    `${ isOwn ? 'card__delete' : 'card__delete_hidden' }`
   );
 
   // Создаём переменную, которую после зададим в `className` для кнопки лайка
