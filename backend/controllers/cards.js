@@ -22,7 +22,7 @@ module.exports.createCard = async (req, res, next) => {
       name,
       link,
       owner: req.user._id,
-    }).populate(['owner']);
+    });
     if (card) {
       res.status(201).send(card);
     }
