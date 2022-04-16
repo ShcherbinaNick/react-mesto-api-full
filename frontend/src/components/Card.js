@@ -7,7 +7,7 @@ function Card({ cardData, onCardClick, onCardLike, onCardDelete }) {
   const { name, link, likes, owner } = cardData;
 
   // Определяем, являемся ли мы владельцем текущей карточки
-  const isOwn = owner._id === currentUser._id;
+  const isOwn = owner === currentUser._id;
   
   // Определяем, есть ли у карточки лайк, поставленный текущим пользователем
   const isLiked = likes.some(i => i._id === currentUser._id);
