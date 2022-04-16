@@ -40,7 +40,7 @@ module.exports.logout = async (req, res, next) => {
     if (!token) {
       throw new UnAuthtorizedError('Вы должны быть залогинены, чтобы выйти');
     }
-    res.clearCookie('token', {
+    res.clearCookie('token', token, {
       httpOnly: true,
       domain: '.shcherbinanick.mesto.nomoredomains.work',
     }).send({ message: 'Вы вышли из учётной записи' });
@@ -116,8 +116,8 @@ module.exports.createUser = async (req, res, next) => {
 module.exports.updateUser = async (req, res, next) => {
   try {
     const { name, about } = req.body;
-    const updatedUser = await User.findOneAndUpdate(
-      { _id: req.user._id },
+    const updatedUser = await User.findByIdAndUpdate(
+      req.user._id,
       { name, about },
       { new: true, runValidators: true },
     );
@@ -136,8 +136,8 @@ module.exports.updateUser = async (req, res, next) => {
 module.exports.updateAvatar = async (req, res, next) => {
   try {
     const { avatar } = req.body;
-    const updatedUser = await User.findOneAndUpdate(
-      { _id: req.user._id },
+    const updatedUser = await User.findByIdAndUpdate(
+      req.user._id,
       { avatar },
       { new: true, runValidators: true },
     );
